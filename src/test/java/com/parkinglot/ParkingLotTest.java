@@ -44,4 +44,5 @@ public class ParkingLotTest {
         assertEquals(firstCar,fetchCarFirst);
         assertEquals(secondCar,fetchCarSecond);
     }
+
 }
