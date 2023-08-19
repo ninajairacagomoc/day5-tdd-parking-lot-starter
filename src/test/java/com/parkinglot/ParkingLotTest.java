@@ -18,15 +18,15 @@ public class ParkingLotTest {
         assertNotNull(parkingTicket);
     }
 
-//    @Test
-//    void should_return_the_car_when_fetch_given_parkingLot_and_a_ticket() {
-//        //given
-//        ParkingLot parkingLot = new ParkingLot();
-//        Car car = new Car();
-//        ParkingTicket parkingTicket = new ParkingTicket();
-//        //when
-//        Car fetchCar = parkingLot.fetch(parkingTicket);
-//        //then
-//        assertEquals(car,fetchCar);
-//    }
+    @Test
+    void should_return_the_car_when_fetch_given_parkingLot_and_a_ticket() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingLot.park(car);
+        //when
+        Car fetchCar = parkingLot.fetch(parkingTicket);
+        //then
+        assertEquals(car,fetchCar);
+    }
 }
