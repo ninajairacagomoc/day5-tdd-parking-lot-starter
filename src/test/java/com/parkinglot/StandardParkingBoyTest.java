@@ -1,6 +1,8 @@
 package com.parkinglot;
 
 import com.parkinglot.exception.UnrecognizedTicketException;
+import com.parkinglot.exception.NoAvailablePositionException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +45,7 @@ public class StandardParkingBoyTest {
         Assertions.assertEquals(0, firstParkingLot.getAvailableCapacity());
         Assertions.assertEquals(9, secondParkingLot.getAvailableCapacity());
     }
+
     @Test
     void should_return_the_right_car_when_fetch_given_a_standard_parking_boy_and_two_parking_lot_and_two_tickets() {
         //given
@@ -51,17 +54,18 @@ public class StandardParkingBoyTest {
         Car firstCar = new Car();
         Car secondCar = new Car();
         ParkingTicket firstCarParkingTicket = firstParkingLot.park(firstCar);
-        ParkingTicket secondCarParkingTicket =secondParkingLot.park(secondCar);
+        ParkingTicket secondCarParkingTicket = secondParkingLot.park(secondCar);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
         //when
-        Car fetchCarFirst = standardParkingBoy.fetch(firstCarParkingTicket,firstParkingLot);
-        Car fetchCarSecond = standardParkingBoy.fetch(secondCarParkingTicket,secondParkingLot);
+        Car fetchCarFirst = standardParkingBoy.fetch(firstCarParkingTicket, firstParkingLot);
+        Car fetchCarSecond = standardParkingBoy.fetch(secondCarParkingTicket, secondParkingLot);
 
         //then
         Assertions.assertEquals(firstCar, fetchCarFirst);
         Assertions.assertEquals(secondCar, fetchCarSecond);
     }
+
     @Test
     void should_return_nothing_with_Unrecognized_parking_ticket_when_fetch_given_a_standard_parking_boy_and_two_parking_lot_both_with_parked_cars_and_two_tickets() {
         //given
@@ -76,11 +80,12 @@ public class StandardParkingBoyTest {
         ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
         //when
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () ->
-                standardParkingBoy.fetch(unrecognizedParkingTicket,firstParkingLot)
+                standardParkingBoy.fetch(unrecognizedParkingTicket, firstParkingLot)
         );
         //then
         assertEquals("Unrecognized parkingTicket", unrecognizedTicketException.getMessage());
     }
+
     @Test
     void should_return_nothing_with_Unrecognized_parking_ticket_when_fetch_given_a_standard_parking_boy_and_two_parking_lot_and_a_used_ticket() {
         //given
@@ -90,7 +95,7 @@ public class StandardParkingBoyTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
         Car firstCar = new Car();
         ParkingTicket usedParkingTicket = standardParkingBoy.park(firstCar);
-        standardParkingBoy.fetch(usedParkingTicket,firstParkingLot);
+        standardParkingBoy.fetch(usedParkingTicket, firstParkingLot);
 
         //when
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () ->
@@ -98,5 +103,24 @@ public class StandardParkingBoyTest {
         );
         //then
         assertEquals("Unrecognized parkingTicket", unrecognizedTicketException.getMessage());
+    }
+
+    @Test
+    void should_return_nothing_with_No_available_position_when_park_given_a_standard_parking_boy_and_two_parking_lot_and_both_without_position_and_a_car() {
+        //given
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        Car parkedCar1 = new Car();
+        Car parkedCar2 = new Car();
+        standardParkingBoy.park(parkedCar1,firstParkingLot);
+        standardParkingBoy.park(parkedCar2,secondParkingLot);
+        //when
+        NoAvailablePositionException noAvailablePositionException = assertThrows(NoAvailablePositionException.class, () ->
+                standardParkingBoy.park(new Car(), secondParkingLot)
+        );
+        //then
+        assertEquals("No available parkingLot position", noAvailablePositionException.getMessage());
     }
 }
