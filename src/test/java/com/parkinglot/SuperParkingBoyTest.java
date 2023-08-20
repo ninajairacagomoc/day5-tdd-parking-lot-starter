@@ -38,6 +38,24 @@ public class SuperParkingBoyTest {
         Assertions.assertEquals(firstCar,fetchFirstCar);
         Assertions.assertEquals(secondCar,fetchSecondCar);
     }
+    @Test
+    void should_return_right_cars__when_fetch_given_a_super_parking_boy_and_parking_lot_two_parked_cars_and_two_parking_tickets() {
+        //given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        Car firstCar = new Car();
+        Car secondCar = new Car();
+        ParkingTicket firstParkingTicket = firstParkingLot.park(firstCar);
+        ParkingTicket secondparkingTicket = secondParkingLot.park(secondCar);
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
 
+        //when
+        Car fetchFirstCar = superParkingBoy.fetch(firstCar);
+        Car fetchSecondCar= superParkingBoy.fetch(secondCar);
+        //then
+        Assertions.assertEquals(firstCar,fetchFirstCar);
+        Assertions.assertEquals(secondCar,fetchSecondCar);
+    }
 
 }
