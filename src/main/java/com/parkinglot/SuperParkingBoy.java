@@ -22,8 +22,7 @@ public class SuperParkingBoy {
                 .park(car);
     }
 
-    public Car fetch(ParkingTicket parkingTicket,ParkingLot parkingLot) {
+    public Car fetch(ParkingTicket parkingTicket, ParkingLot parkingLot) {
         return parkingLot.fetch(parkingTicket);
     }
-
 }
