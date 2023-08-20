@@ -5,14 +5,12 @@ import com.parkinglot.exception.NoAvailablePositionException;
 import java.util.Comparator;
 import java.util.List;
 
-public class SuperParkingBoy {
+public class SuperParkingBoy implements ParkingBoy {
     private final List<ParkingLot> parkingLots;
-    private Car car;
 
     public SuperParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
-
 
     public ParkingTicket park(Car car) {
         return parkingLots.stream()
@@ -21,7 +19,7 @@ public class SuperParkingBoy {
                 .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
     }
-
+@Override
     public Car fetch(ParkingTicket parkingTicket, ParkingLot parkingLot) {
         return parkingLot.fetch(parkingTicket);
     }

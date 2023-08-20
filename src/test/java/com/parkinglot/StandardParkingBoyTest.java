@@ -115,7 +115,7 @@ public class StandardParkingBoyTest {
         Car car = new Car();
         //when
         NoAvailablePositionException noAvailablePositionException = assertThrows(NoAvailablePositionException.class, () ->
-                standardParkingBoy.park(car, secondParkingLot)
+                standardParkingBoy.park(car)
         );
         //then
         assertEquals("No available parkingLot position", noAvailablePositionException.getMessage());

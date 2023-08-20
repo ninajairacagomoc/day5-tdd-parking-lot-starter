@@ -8,11 +8,10 @@ import java.util.Map;
 
 public class ParkingLot {
     private final Map<ParkingTicket, Car> parkingTicketMap = new HashMap<>();
-    private final int DEFAULT_CAPACITY = 10;
     private final int capacity;
 
     public ParkingLot() {
-        this.capacity = DEFAULT_CAPACITY;
+        this.capacity = 10;
     }
 
     public ParkingLot(int capacity) {
@@ -39,8 +38,9 @@ public class ParkingLot {
         return parkingTicketMap.remove(parkingTicket);
     }
 
+
     public int getAvailableCapacity() {
-        return capacity-parkingTicketMap.size();
+        return capacity - parkingTicketMap.size();
     }
 
     public boolean hasAvailableCapacity() {
