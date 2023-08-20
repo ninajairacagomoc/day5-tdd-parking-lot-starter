@@ -106,11 +106,11 @@ public class SmartParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(0);
         ParkingLot secondParkingLot = new ParkingLot(0);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        StandardParkingBoy smartParkingBoy = new StandardParkingBoy(parkingLots);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
         Car car = new Car();
         //when
         NoAvailablePositionException noAvailablePositionException = assertThrows(NoAvailablePositionException.class, () ->
-                smartParkingBoy.park(car, firstParkingLot)
+                smartParkingBoy.park(car)
         );
         //then
         assertEquals("No available parkingLot position", noAvailablePositionException.getMessage());
