@@ -30,11 +30,9 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        if (parkingTicketMap.containsKey(parkingTicket)) {
-            Car car = parkingTicketMap.get(parkingTicket);
-            parkingTicketMap.remove(parkingTicket);
-            return car;
+        if (parkingTicketMap.get(parkingTicket) == null) {
+            throw new UnrecognizedTicketException();
         }
-        return null;
+        return parkingTicketMap.remove(parkingTicket);
     }
 }

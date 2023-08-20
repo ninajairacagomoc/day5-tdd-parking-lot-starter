@@ -26,10 +26,11 @@ public class ParkingLotTest {
         //when
         Car fetchCar = parkingLot.fetch(parkingTicket);
         //then
-        assertEquals(car,fetchCar);
+        assertEquals(car, fetchCar);
     }
+
     @Test
-    void should_return_the_right_car_with_each_ticket_when_fetch_car_twice_given_a_parkingLot_and_two_parked_tickets(){
+    void should_return_the_right_car_with_each_ticket_when_fetch_car_twice_given_a_parkingLot_and_two_parked_tickets() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car firstCar = new Car();
@@ -40,23 +41,26 @@ public class ParkingLotTest {
         Car fetchCarFirst = parkingLot.fetch(parkingTicketFirst);
         Car fetchCarSecond = parkingLot.fetch(parkingTicketSecond);
         //then
-        assertEquals(firstCar,fetchCarFirst);
-        assertEquals(secondCar,fetchCarSecond);
+        assertEquals(firstCar, fetchCarFirst);
+        assertEquals(secondCar, fetchCarSecond);
     }
+
     @Test
-    void should_return_nothing_when_fetch_the_car_given_a_parkingLot_and_a_wrong_parking_ticket(){
+    void should_return_unrecognizedTicketException_when_fetch_the_car_given_a_parkingLot_and_a_wrong_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         parkingLot.park(car);
         ParkingTicket wrongParkingTicket = new ParkingTicket();
         //when
-        Car fetchCar = parkingLot.fetch(wrongParkingTicket);
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () ->
+                parkingLot.fetch(wrongParkingTicket));
         //then
-        assertNull(fetchCar);
+        assertEquals("Unrecognized parkingTicket", unrecognizedTicketException.getMessage());
     }
+
     @Test
-    void should_return_nothing_when_fetch_the_car_given_a_parkingLot_and_a_used_parking_ticket(){
+    void should_return_nothing_when_fetch_the_car_given_a_parkingLot_and_a_used_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -67,8 +71,9 @@ public class ParkingLotTest {
         //then
         assertNull(fetchCar);
     }
+
     @Test
-    void should_return_nothing_when_park_the_car_given_a_parkingLot_without_any_position(){
+    void should_return_nothing_when_park_the_car_given_a_parkingLot_without_any_position() {
         //given
         ParkingLot parkingLot = new ParkingLot(1);
         Car newCar = new Car();
