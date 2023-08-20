@@ -56,6 +56,23 @@ public class SmartParkingBoyTest {
         Assertions.assertEquals(firstCar, fetchCarFirst);
         Assertions.assertEquals(secondCar, fetchCarSecond);
     }
+    @Test
+    void should_return_nothing_with_Unrecognized_parking_ticket_when_fetch_given_a_smart_parking_boy_and_two_parking_lot_and_a_unrecognized_ticket(){
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        Car firstCar = new Car();
+        Car secondCar = new Car();
+        ParkingTicket firstCarParkingTicket = firstParkingLot.park(firstCar);
+        ParkingTicket secondCarParkingTicket = secondParkingLot.park(secondCar);
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        Car car = new Car();
+        //when
+        Car fetchCarFirst = smartParkingBoy.fetch(firstCarParkingTicket, firstParkingLot);
+        Car fetchCarSecond = smartParkingBoy.fetch(secondCarParkingTicket, secondParkingLot);
+        //then
+        Assertions.assertEquals(firstCar, fetchCarFirst);
+        Assertions.assertEquals(secondCar, fetchCarSecond);
 
 }
 

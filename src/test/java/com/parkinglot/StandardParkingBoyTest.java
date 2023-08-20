@@ -67,7 +67,7 @@ public class StandardParkingBoyTest {
     }
 
     @Test
-    void should_return_nothing_with_Unrecognized_parking_ticket_when_fetch_given_a_standard_parking_boy_and_two_parking_lot_both_with_parked_cars_and_two_tickets() {
+    void should_return_nothing_with_Unrecognized_parking_ticket_when_fetch_given_a_standard_parking_boy_and_two_parking_lot_and_unrecognizable_ticket() {
         //given
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot secondParkingLot = new ParkingLot();
