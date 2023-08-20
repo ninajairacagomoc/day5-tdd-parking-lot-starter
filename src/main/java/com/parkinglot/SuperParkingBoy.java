@@ -5,22 +5,18 @@ import com.parkinglot.exception.NoAvailablePositionException;
 import java.util.Comparator;
 import java.util.List;
 
-public class SmartParkingBoy {
+public class SuperParkingBoy {
     private final List<ParkingLot> parkingLots;
-    private Car car;
 
-    public SmartParkingBoy(List<ParkingLot> parkingLots) {
+    public SuperParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
+
     public ParkingTicket park(Car car) {
         return parkingLots.stream()
-                .max(Comparator.comparingInt(ParkingLot::getAvailableCapacity))
+                .max(Comparator.comparingDouble(parkingLot -> (double) parkingLot.getAvailableCapacity() / parkingLot.getTotalCapacity()))
                 .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
-    }
-
-    public Car fetch(ParkingTicket parkingTicket, ParkingLot parkingLot) {
-        return parkingLot.fetch(parkingTicket);
     }
 }

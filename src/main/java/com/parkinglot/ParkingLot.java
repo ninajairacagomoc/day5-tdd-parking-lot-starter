@@ -46,4 +46,8 @@ public class ParkingLot {
     public boolean hasAvailableCapacity() {
         return !isFull();
     }
+
+    public double getTotalCapacity() {
+        return capacity;
+    }
 }
