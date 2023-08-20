@@ -1,5 +1,7 @@
 package com.parkinglot;
 
+import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.exception.UnrecognizedTicketException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,15 +76,17 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_nothing_when_park_the_car_given_a_parkingLot_without_any_position() {
+    void should_return_UnrecognizedTicketException_when_park_the_car_given_a_parkingLot_without_any_position() {
         //given
         ParkingLot parkingLot = new ParkingLot(1);
         Car newCar = new Car();
         Car parkedCar = new Car();
+        parkingLot.park(parkedCar);
         //when
-        ParkingTicket parkingTicket = parkingLot.park(parkedCar);
-        ParkingTicket newParkingTicket = parkingLot.park(newCar);
+        NoAvailablePositionException noAvailablePositionException = assertThrows(NoAvailablePositionException.class, () -> {
+            parkingLot.park(newCar);
+        });
         //then
-        assertNull(newParkingTicket);
+        assertEquals("No available parkingLot position", noAvailablePositionException.getMessage());
     }
 }
